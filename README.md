@@ -33,11 +33,6 @@ Elevate your health journey with our Diet &amp; Workout Recommendation System on
 
 **End**
 
-
-## Demo
-
-![88bc7558-2a0e-41cf-98db-594cca9cbcaa](https://github.com/m-rishab/Diet-and-workout-Recommendation-using-Google-Gemini-pro/assets/113618652/d70340d6-e32b-486d-b7cb-dfaa17b62d7a)
-
 ## Live Project
 
 [https://diet-and-workout-recommendation-using-app-gemini-pro.streamlit.app/](https://diet-and-workout-recommendation-using-app-gemini-pro.streamlit.app/)
