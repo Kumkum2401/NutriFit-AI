@@ -10,7 +10,6 @@ import sqlite3
 
 # UI 
 st.set_page_config(page_title="Diet & Workout Planner", layout="wide")
-# st.title("NutriFit")
 st.title("NutriFit AI🥗: Personalized Diet and Fitness Advisor")
 
 # Secure API Key (Using Streamlit Secrets instead of hardcoding)
