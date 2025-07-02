@@ -14,13 +14,13 @@ st.title("NutriFit AI🥗: Personalized Diet and Fitness Advisor")
 
 # Secure API Key (Using Streamlit Secrets instead of hardcoding)
 if "COHERE_API_KEY" in st.secrets:
-    os.environ["COHERE_API_KEY"] = st.secrets["COHERE_API_KEY"]
+    cohere_api_key = st.secrets["COHERE_API_KEY"]
 else:
     st.error("API Key not found. Please check your secrets.toml file.")
 
 
-generation_config = {"temperature": 0.6, "max_output_tokens": 2048}
-model = ChatCohere(model="command-r-plus", cohere_api_key=os.environ["COHERE_API_KEY"], generation_config=generation_config)
+generation_config = {"temperature": 0.6, "max_tokens": 2048}
+model = ChatCohere(model="command-r-plus", cohere_api_key= cohere_api_key, generation_config=generation_config)
 
 # Database Setup
 conn = sqlite3.connect("user_data.db")
