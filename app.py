@@ -4,7 +4,7 @@ import os
 from datetime import datetime
 import plotly.graph_objs as go
 from langchain.prompts import PromptTemplate
-from langchain_google_genai import GoogleGenerativeAI
+from langchain_google_genai import ChatCohere
 from langchain_core.runnables import RunnableLambda
 import sqlite3
 
@@ -13,14 +13,14 @@ st.set_page_config(page_title="Diet & Workout Planner", layout="wide")
 st.title("NutriFit AI🥗: Personalized Diet and Fitness Advisor")
 
 # Secure API Key (Using Streamlit Secrets instead of hardcoding)
-if "GOOGLE_API_KEY" in st.secrets:
-    os.environ["GOOGLE_API_KEY"] = st.secrets["GOOGLE_API_KEY"]
+if "COHERE_API_KEY" in st.secrets:
+    os.environ["COHERE_API_KEY"] = st.secrets["COHERE_API_KEY"]
 else:
     st.error("API Key not found. Please check your secrets.toml file.")
 
 
 generation_config = {"temperature": 0.6, "top_p": 1, "top_k": 1, "max_output_tokens": 2048}
-model = GoogleGenerativeAI(model="gemini-1.5-pro-latest", generation_config=generation_config)
+model = ChatCohere(model="command-r-plus", cohere_api_key=os.environ["COHERE_API_KEY"], generation_config=generation_config)
 
 # Database Setup
 conn = sqlite3.connect("user_data.db")
