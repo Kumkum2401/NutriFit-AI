@@ -4,7 +4,7 @@ import os
 from datetime import datetime
 import plotly.graph_objs as go
 from langchain.prompts import PromptTemplate
-from langchain_google_genai import ChatCohere
+from langchain_cohere import ChatCohere
 from langchain_core.runnables import RunnableLambda
 import sqlite3
 
