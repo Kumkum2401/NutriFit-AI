@@ -19,7 +19,7 @@ else:
     st.error("API Key not found. Please check your secrets.toml file.")
 
 
-generation_config = {"temperature": 0.6, "top_p": 1, "top_k": 1, "max_output_tokens": 2048}
+generation_config = {"temperature": 0.6, "max_output_tokens": 2048}
 model = ChatCohere(model="command-r-plus", cohere_api_key=os.environ["COHERE_API_KEY"], generation_config=generation_config)
 
 # Database Setup
