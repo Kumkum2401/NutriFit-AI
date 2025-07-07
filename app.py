@@ -18,7 +18,6 @@ if "COHERE_API_KEY" in st.secrets:
 else:
     st.error("API Key not found. Please check your secrets.toml file.")
 
-
 generation_config = {"temperature": 0.6, "max_tokens": 2048}
 model = ChatCohere(model="command-r-plus", cohere_api_key= cohere_api_key, generation_config=generation_config)
 
@@ -91,4 +90,5 @@ if st.button("Generate Plan"):
         "goal": goal, "diet": diet, "activity_level": activity_level,
         "medical_conditions": medical_conditions, "region": region, "state": state
     })
-    st.write(response)
+    st.markdown(response.content)
+    # st.write(response)
