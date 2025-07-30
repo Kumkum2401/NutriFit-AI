@@ -1,7 +1,6 @@
-﻿plotly
-pandas
-streamlit==1.35.0
+﻿streamlit==1.35.0
 langchain==0.1.16
 cohere==4.39.0
 langchain-cohere==0.1.4
-python-dotenv
+python-dotenv==1.0.1
+pandas==2.2.2
