@@ -3,15 +3,18 @@ Elevate your health journey with our NutriFit AI - your Personalized Diet and Wo
 
 ## Key Features
 
-- **Personalized recommendations:** Generates diet and workout plans customized to individual needs and preferences.
+- **Personalized recommendations:** Generates 7 days diet and workout plans customized to individual needs and preferences.
 - **AI-powered insights:** Utilizes Cohere Command R+ for structured, natural, and effective guidance.
 - **User-friendly interface:** Streamlined interaction through a simple and intuitive interface.
+- **Uses SQLite:** Persistent user preference storage using SQLite.
+- **Different Diets:** Supports vegetarian, non-vegetarian, and vegan diets.
 
 ## Technologies Used
 
 - **Streamlit:** Framework for building web applications in Python.
 - **Cohere API (Command R+):** Access to AI model for text-generating capabilities.
-- **Langchain:** Framework for chaining prompts and managing LLM outputs.
+- **Backend:** Python
+- **Data Storage:** SQLite
 
 ## Flowchart: Using Cohere API Key in Diet and Workout Recommendation Project
 
