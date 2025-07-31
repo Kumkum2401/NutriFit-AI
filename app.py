@@ -3,9 +3,7 @@ import pandas as pd
 import os
 from datetime import datetime
 import plotly.graph_objs as go
-from langchain.prompts import PromptTemplate
-from langchain_cohere import ChatCohere
-from langchain_core.runnables import RunnableLambda
+import cohere 
 import sqlite3
 
 # UI 
@@ -15,11 +13,9 @@ st.title("NutriFit AI🥗: Personalized Diet and Fitness Advisor")
 # Secure API Key (Using Streamlit Secrets instead of hardcoding)
 if "COHERE_API_KEY" in st.secrets:
     cohere_api_key = st.secrets["COHERE_API_KEY"]
+    co = cohere.Client(cohere_api_key)
 else:
     st.error("API Key not found. Please check your secrets.toml file.")
-
-generation_config = {"temperature": 0.6, "max_tokens": 2048}
-model = ChatCohere(model="command-r-plus", cohere_api_key= cohere_api_key, generation_config=generation_config)
 
 # Database Setup
 conn = sqlite3.connect("user_data.db")
@@ -65,30 +61,42 @@ with st.sidebar:
         conn.commit()
         st.success("Preferences Saved!")
 
-prompt_template = PromptTemplate(
-    input_variables=['name', 'age', 'gender', 'weight', 'height', 'goal', 'diet', 'activity_level', 'medical_conditions', 'region', 'state'],
-    template="Personalized Diet & Workout Plan:\n"
-            "Name: {name}\n"
-            "Age: {age}\n"
-            "Gender: {gender}\n"
-            "Weight: {weight} kg\n"
-            "Height: {height} cm\n"
-            "Goal: {goal}\n"
-            "Diet Preference: {diet}\n"
-            "Activity Level: {activity_level}\n"
-            "Medical Conditions: {medical_conditions}\n"
-            "Region: {region}\n"
-            "State: {state}\n"
-            "Provide a structured 7-day diet and workout plan."
-)
-
-chain = RunnableLambda(lambda inputs: prompt_template.format(**inputs)) | model
+# Build the prompt string 
+def build_prompt(inputs):
+    return (
+        "Personalized Diet & Workout Plan:\n"
+        f"Name: {inputs['name']}\n"
+        f"Age: {inputs['age']}\n"
+        f"Gender: {inputs['gender']}\n"
+        f"Weight: {inputs['weight']} kg\n"
+        f"Height: {inputs['height']} cm\n"
+        f"Goal: {inputs['goal']}\n"
+        f"Diet Preference: {inputs['diet']}\n"
+        f"Activity Level: {inputs['activity_level']}\n"
+        f"Medical Conditions: {inputs['medical_conditions']}\n"
+        f"Region: {inputs['region']}\n"
+        f"State: {inputs['state']}\n"
+        "Provide a structured 7-day diet and workout plan."
+    )
 
 if st.button("Generate Plan"):
-    response = chain.invoke({
-        "name": name, "age": age, "gender": gender, "weight": weight, "height": height,
-        "goal": goal, "diet": diet, "activity_level": activity_level,
-        "medical_conditions": medical_conditions, "region": region, "state": state
-    })
-    st.markdown(response.content)
-    # st.write(response)
+    user_inputs = {
+        "name": name, "age": age, "gender": gender, "weight": weight,
+        "height": height, "goal": goal, "diet": diet,
+        "activity_level": activity_level,
+        "medical_conditions": medical_conditions,
+        "region": region, "state": state
+    }
+
+    prompt = build_prompt(user_inputs)
+
+    try:
+        response = co.chat(
+            message=prompt,
+            model="command-r-plus",
+            temperature=0.6,
+            max_tokens=2048
+        )
+        st.markdown(response.text)
+    except Exception as e:
+        st.error(f"Error generating plan: {e}")
