@@ -2,3 +2,4 @@
 pandas
 plotly
 cohere==5.5.3
+toml

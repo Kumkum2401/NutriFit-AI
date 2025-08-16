@@ -1,0 +1,6 @@
+[theme]
+primaryColor = "#22C55E"          # Fresh Green (buttons, highlights)
+backgroundColor = "#F9F9F9"       # Light Gray background
+secondaryBackgroundColor = "#D1FAE5" # Soft Green (sidebar/cards)
+textColor = "#1F2937"             # Dark Gray text
+font = "sans serif"
