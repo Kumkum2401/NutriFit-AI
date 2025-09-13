@@ -1,5 +1,5 @@
 ﻿streamlit
 pandas
 plotly
-cohere==5.5.3
+cohere==5.7.0
 toml
