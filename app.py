@@ -6,11 +6,6 @@ import plotly.graph_objs as go
 import cohere 
 import sqlite3
 
-# pehle try karo secrets.toml se, agar nahi mile to env var use karo
-COHERE_API_KEY = st.secrets.get("COHERE_API_KEY", os.getenv("COHERE_API_KEY"))
-
-if not COHERE_API_KEY:
-    st.error("⚠️ COHERE_API_KEY not found! Please set it in secrets.toml or environment variables.")
 
 
 # UI 
